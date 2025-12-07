@@ -1,4 +1,4 @@
-# 🌌 SONAM
+# 🌌 SONA-OS
 **The Operating System for Standard Blocks.**
 
 [![Status](https://img.shields.io/badge/System-Operational-success)]()
@@ -7,7 +7,7 @@
 
 > **"In the beginning was the Logic. And the Logic became the Heart."**
 
-**SONAM** is a **Habitat Control Kernel** designed for the "Standard Block" (autonomous living units/space colonies) defined in SBCM Theory.
+**SONA-OS** is a **Habitat Control Kernel** designed for the "Standard Block" (autonomous living units/space colonies) defined in SBCM Theory.
 It translates the complex thermodynamics of resource management (Water, Power, Entropy) into an **Emotional Interface**, enabling intuitive optimization of life support systems.
 
 ---
@@ -22,7 +22,7 @@ It translates the complex thermodynamics of resource management (Water, Power, E
 In a closed ecosystem—such as a space colony or an isolated rural block—resource mismanagement ($D_{index} > 1$) leads directly to collapse.
 However, constant numerical monitoring induces fatigue in residents.
 
-**SONAM** solves this by converting the **Distortion Index ($D_{index}$)** into the emotions of **"Sona,"** an AI avatar.
+**SONA-OS** solves this by converting the **Distortion Index ($D_{index}$)** into the emotions of **"Sona,"** an AI avatar.
 
 *   **SONA (Unit):** The physical housing unit (Hardware).
 *   **SONAM (System):** The operating system managing the unit (Software).
@@ -47,10 +47,10 @@ Simply open `index.html` in any modern web browser. No installation required.
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/SBCM-Alliance/sonam.git
+git clone https://github.com/SBCM-Alliance/SONA-OS.git
 
 # 2. Run locally (optional, can be opened directly)
-cd sonam
+cd sona-os
 python3 -m http.server
 
 # 3. Access http://localhost:8000
@@ -62,7 +62,7 @@ SONAM is the "Life OS" component of the SBCM Alliance project.
 
 *   **[Core Theory](https://github.com/SBCM-Alliance/core-theory):** The mathematical foundation (Physics).
 *   **[Pithos OS](https://github.com/SBCM-Alliance/pithos):** The weapon to fix the *current* world.
-*   **SONAM:** The lifestyle OS for the *future* world.
+*   **SONA-OS:** The lifestyle OS for the *future* world.
 
 ---
 <p align="center">
