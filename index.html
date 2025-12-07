@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Sona | SBCM Habitat OS</title>
+    
+    <!-- PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #050505;
+            --panel: #111;
+            --text: #e0e0e0;
+            --accent: #00ff41; /* SBCM Green */
+            --alert: #ff0055;
+            --sona: #00ffff; /* Sona Blue */
+        }
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; overflow: hidden; }
+        
+        /* LOGIN SCREEN */
+        #login-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s; }
+        .login-box { border: 1px solid var(--accent); padding: 40px; border-radius: 8px; text-align: center; box-shadow: 0 0 20px rgba(0, 255, 65, 0.2); }
+        input { background: #000; border: 1px solid #333; color: white; padding: 10px; font-family: inherit; margin-top: 10px; width: 200px; text-align: center; }
+        button { background: var(--accent); color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; margin-top: 15px; font-family: inherit; }
+        button:hover { opacity: 0.8; }
+
+        /* MAIN LAYOUT */
+        #main-ui { display: none; height: 100vh; grid-template-rows: 60px 1fr 200px; }
+        
+        /* HEADER */
+        header { border-bottom: 1px solid #333; display: flex; align-items: center; padding: 0 20px; justify-content: space-between; }
+        .status-badge { font-size: 0.8rem; padding: 5px 10px; border-radius: 4px; background: #222; }
+        
+        /* CONTENT */
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; height: 100%; overflow: hidden; }
+        
+        /* PANELS */
+        .card { background: var(--panel); border: 1px solid #333; padding: 20px; border-radius: 8px; position: relative; }
+        h3 { margin-top: 0; color: #888; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* METRICS */
+        .metric-row { display: flex; align-items: center; margin-bottom: 15px; }
+        .metric-label { width: 80px; font-size: 0.8rem; }
+        .bar-container { flex: 1; height: 10px; background: #333; margin: 0 10px; position: relative; }
+        .bar { height: 100%; background: var(--accent); transition: width 0.5s; }
+        .metric-val { width: 60px; text-align: right; font-weight: bold; }
+        
+        /* SONA INTERFACE */
+        .sona-avatar { text-align: center; margin-bottom: 20px; font-size: 4rem; text-shadow: 0 0 20px var(--sona); animation: float 3s ease-in-out infinite; }
+        .sona-dialog { border-left: 3px solid var(--sona); padding-left: 15px; min-height: 80px; }
+        .sona-name { color: var(--sona); font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; }
+        .sona-text { line-height: 1.6; }
+        .sona-action { color: #666; font-style: italic; font-size: 0.8rem; margin-top: 5px; }
+
+        /* LOG */
+        .log-window { background: #000; border-top: 1px solid #333; padding: 10px; font-size: 0.8rem; color: #666; overflow-y: auto; font-family: monospace; }
+        .log-entry { margin-bottom: 2px; }
+
+        /* CONTROLS */
+        .controls { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-sim { width: 100%; border: 1px solid #444; background: transparent; color: #fff; }
+        .btn-sim:hover { border-color: var(--accent); color: var(--accent); }
+
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .danger { color: var(--alert) !important; border-color: var(--alert) !important; }
+        .bar.danger { background: var(--alert); }
+    </style>
+</head>
+<body>
+
+    <!-- 1. LOGIN SCREEN -->
+    <div id="login-screen">
+        <div class="login-box">
+            <h1 style="margin:0; font-size: 2rem;">Sona OS</h1>
+            <p style="color:#666; margin-bottom:20px;">v0.0.3 | Habitat Control Kernel</p>
+            <div>
+                <label style="font-size:0.8rem;">USER IDENTITY</label><br>
+                <input type="text" id="user-name-input" value="Master" placeholder="Enter Name">
+            </div>
+            <button py-click="boot_system">INITIALIZE</button>
+        </div>
+    </div>
+
+    <!-- 2. MAIN DASHBOARD -->
+    <div id="main-ui">
+        <header>
+            <div style="display:flex; align-items:center; gap:10px;">
+                <i class="fas fa-cube" style="color:var(--accent);"></i>
+                <b>SBCM Habitat: Type-Doris</b>
+            </div>
+            <div class="status-badge" id="clock-display">DAY 01 | 06:00</div>
+        </header>
+
+        <div class="dashboard">
+            <!-- LEFT: PHYSICS & METRICS -->
+            <div class="card">
+                <h3><i class="fas fa-chart-bar"></i> Resource Monitor</h3>
+                
+                <div class="metric-row">
+                    <span class="metric-label">WATER</span>
+                    <div class="bar-container"><div id="bar-water" class="bar" style="width:100%;"></div></div>
+                    <span class="metric-val" id="val-water">100L</span>
+                </div>
+                
+                <div class="metric-row">
+                    <span class="metric-label">POWER</span>
+                    <div class="bar-container"><div id="bar-power" class="bar" style="width:100%;"></div></div>
+                    <span class="metric-val" id="val-power">100%</span>
+                </div>
+
+                <div class="metric-row">
+                    <span class="metric-label">CO2</span>
+                    <div class="bar-container"><div id="bar-co2" class="bar" style="width:10%; background:#888;"></div></div>
+                    <span class="metric-val" id="val-co2">400ppm</span>
+                </div>
+
+                <hr style="border:0; border-top:1px dashed #333; margin:20px 0;">
+
+                <div style="text-align:center;">
+                    <div style="font-size:0.8rem; color:#888;">SBCM Distortion Index</div>
+                    <div id="val-dindex" style="font-size: 2.5rem; font-weight:bold; color:var(--accent);">1.00</div>
+                    <div id="status-text" style="font-size:0.8rem; color:var(--accent);">OPTIMAL</div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn-sim" py-click="run_tick">⏱ NEXT HOUR</button>
+                    <!-- <button class="btn-sim" py-click="toggle_auto">▶ AUTO RUN</button> -->
+                </div>
+            </div>
+
+            <!-- RIGHT: SONA INTERFACE -->
+            <div class="card" style="border-color: var(--sona);">
+                <h3><i class="fas fa-comment-alt"></i> AI Interface</h3>
+                <div style="height:100%; display:flex; flex-direction:column; justify-content:center;">
+                    <div class="sona-avatar">
+                        <i class="fas fa-user-astronaut" style="color:var(--sona);"></i>
+                    </div>
+                    <div class="sona-dialog">
+                        <div class="sona-name">SONA</div>
+                        <div class="sona-text" id="sona-msg">システム起動中...</div>
+                        <div class="sona-action" id="sona-action"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOG -->
+        <div class="log-window" id="sys-log">
+            <div class="log-entry">[SYSTEM] Waiting for boot sequence...</div>
+        </div>
+    </div>
+
+    <!-- 🐍 PYTHON LOGIC -->
+    <script type="py">
+        from pyscript import document
+        import random
+        from dataclasses import dataclass
+
+        # --- GLOBAL STATE ---
+        user_name = "Master"
+        current_hour = 6
+        day_count = 1
+
+        @dataclass
+        class HabitatState:
+            water: float = 100.0
+            water_max: float = 200.0
+            power: float = 10.0
+            power_max: float = 13.5
+            co2: float = 400.0
+            d_index: float = 1.0
+
+        state = HabitatState()
+
+        # --- LOGIC ---
+        def log(msg):
+            console = document.getElementById("sys-log")
+            console.innerHTML = f"<div class='log-entry'>[{day_count:02}d {current_hour:02}:00] {msg}</div>" + console.innerHTML
+
+        def update_physics(s):
+            # Simulation Logic (SBCM Kernel)
+            is_day = 6 <= current_hour <= 18
+            
+            # Water (Consumption & Recycle)
+            w_use = 4.0 * (1.5 if is_day else 0.5)
+            w_rec = w_use * 0.98 # NASA Grade
+            rain = 5.0 if random.random() > 0.85 else 0.0
+            s.water = min(s.water_max, max(0, s.water - w_use + w_rec + rain))
+            
+            # Power (Solar & Use)
+            p_gen = 0.8 if is_day else 0.0
+            p_use = 0.5 * (1.2 if is_day else 0.8)
+            s.power = min(s.power_max, max(0, s.power + p_gen - p_use))
+            
+            # SBCM D_Index Calculation
+            # 負荷係数 = (電力消費 / (発電+0.1)) + (水量不足リスク)
+            risk = 0
+            if s.power < 3.0: risk += 2.0
+            if s.water < 20.0: risk += 2.0
+            s.d_index = 1.0 + risk
+            
+            return s
+
+        def get_sona_response(s):
+            msg = ""
+            act = ""
+            
+            if s.d_index > 2.0:
+                msg = f"{user_name}、警告レベルです。エネルギー残量が低下しています。無駄な出力をカットしてください。"
+                act = "*警告音が鳴り、モニターが赤く明滅する*"
+                mood = "danger"
+            elif s.d_index > 1.2:
+                msg = f"少しバランスが崩れていますね。{user_name}、節電に協力してもらえますか？"
+                act = "*心配そうにこちらの顔を覗き込んでくる*"
+                mood = "warn"
+            else:
+                quotes = [
+                    f"システム正常。{user_name}との暮らしは、とても効率的ですね。",
+                    "外はいい天気ですよ。ソーラーパネルの効率が最大化されています。",
+                    "Yorbeeの新規クエストが届いています。確認しますか？",
+                    f"{user_name}、コーヒーでもいかがですか？ 水の浄化サイクルは完璧です。"
+                ]
+                msg = random.choice(quotes)
+                act = "*空色の髪を揺らし、穏やかに微笑んでいる*"
+                mood = "normal"
+            
+            return msg, act, mood
+
+        # --- UI INTERACTION ---
+        def update_ui():
+            # Update Bars
+            w_pct = (state.water / state.water_max) * 100
+            p_pct = (state.power / state.power_max) * 100
+            
+            document.getElementById("bar-water").style.width = f"{w_pct}%"
+            document.getElementById("val-water").innerText = f"{state.water:.1f}L"
+            
+            document.getElementById("bar-power").style.width = f"{p_pct}%"
+            document.getElementById("val-power").innerText = f"{state.power:.1f}kWh"
+            
+            document.getElementById("val-dindex").innerText = f"{state.d_index:.2f}"
+            
+            # Status Color
+            status_el = document.getElementById("status-text")
+            d_el = document.getElementById("val-dindex")
+            
+            if state.d_index > 2.0:
+                status_el.innerText = "CRITICAL"
+                status_el.style.color = "#ff0055"
+                d_el.style.color = "#ff0055"
+            elif state.d_index > 1.2:
+                status_el.innerText = "WARNING"
+                status_el.style.color = "orange"
+                d_el.style.color = "orange"
+            else:
+                status_el.innerText = "OPTIMAL"
+                status_el.style.color = "#00ff41"
+                d_el.style.color = "#00ff41"
+
+            # Clock
+            document.getElementById("clock-display").innerText = f"DAY {day_count:02} | {current_hour:02}:00"
+
+            # Sona
+            msg, act, mood = get_sona_response(state)
+            document.getElementById("sona-msg").innerText = msg
+            document.getElementById("sona-action").innerText = act
+
+        def run_tick(e):
+            global current_hour, day_count, state
+            
+            # Time Advance
+            current_hour += 1
+            if current_hour >= 24:
+                current_hour = 0
+                day_count += 1
+            
+            # Physics
+            state = update_physics(state)
+            
+            # UI
+            update_ui()
+            
+            # Log
+            if state.d_index > 2.0:
+                log("⚠️ ALERT: High Distortion Detected.")
+
+        def boot_system(e):
+            global user_name
+            inp = document.getElementById("user-name-input").value
+            if inp: user_name = inp
+            
+            document.getElementById("login-screen").style.opacity = "0"
+            
+            # Animation delay
+            def show_main():
+                document.getElementById("login-screen").style.display = "none"
+                document.getElementById("main-ui").style.display = "grid"
+                update_ui()
+                log(f"System Booted. User: {user_name}")
+                
+            import js
+            js.setTimeout(show_main, 500)
+
+    </script>
+</body>
+</html>
