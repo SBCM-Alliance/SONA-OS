@@ -6,7 +6,7 @@
 Sonaハビタットにおける、モジュール間接続の物理標準規格（SBCM-DIN-001）案です。
 誰でも、どこでも、安価な資材で再現可能な「単純さ」を最優先に設計されています。
 
-![Sona Universal Link](./images/sona_link_concept_v0.1.png)
+![Sona Universal Link](/hardware_specs/sona_link_concept_v0.1.png)
 
 ### 📐 Dimensions (Target Spec)
 *   **Module Face:** 200mm × 200mm (Standard Brick Size)
