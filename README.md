@@ -1,70 +1,96 @@
-# 🌌 SONA-OS
-**The Operating System for Standard Blocks.**
+## 🌌 SONA-OS (Project Sona)
+**Standard-block Operational Navigation Agent.**
 
-[![Status](https://img.shields.io/badge/System-Operational-success)]()
+[![Status](https://img.shields.io/badge/Status-Operational-success)]()
 [![Engine](https://img.shields.io/badge/Runtime-MicroPython-blue)](https://pyscript.net)
+[![Hardware](https://img.shields.io/badge/Hardware-SBCM%20Standard-orange)]()
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 > **"In the beginning was the Logic. And the Logic became the Heart."**
-
-**SONA-OS** is a **Habitat Control Kernel** designed for the "Standard Block" (autonomous living units/space colonies) defined in SBCM Theory.
-It translates the complex thermodynamics of resource management (Water, Power, Entropy) into an **Emotional Interface**, enabling intuitive optimization of life support systems.
-
----
-
-### 🖥️ Interface
-![SONAM UI](docs/screenshot.png)
+> （初めに論理ありき。そして論理は心となった。）
 
 ---
 
 ## 📖 Concept
 
-In a closed ecosystem—such as a space colony or an isolated rural block—resource mismanagement ($D_{index} > 1$) leads directly to collapse.
-However, constant numerical monitoring induces fatigue in residents.
+**SONA-OS** is the **Habitat Control Kernel** designed for the "Standard Block" (autonomous living units / space colonies) defined in SBCM Theory.
 
-**SONA-OS** solves this by converting the **Distortion Index ($D_{index}$)** into the emotions of **"Sona,"** an AI avatar.
+In a closed ecosystem—such as a dying rural village or a Mars colony—resource mismanagement ($D_{index} > 1$) leads directly to death. However, constant numerical monitoring induces fatigue in residents.
 
-*   **SONA (Unit):** The physical housing unit (Hardware).
-*   **SONAM (System):** The operating system managing the unit (Software).
+**We solved this by converting "Thermodynamics" into "Empathy."**
+SONA translates complex resource data (Water, Power, Entropy) into the emotions of an AI avatar.
 
-## 🚀 Features
+![SONAM UI](docs/screenshot.png)
 
-### 1. Emotional Feedback Loop
+### 🔑 Definitions
+*   **SONA (Micro):** The Agent & The Unit. Your partner who manages the house.
+*   **SONAM (Meso):** The Logic. **S**tandard-block **O**ptimized **N**etwork **A**llocation **M**echanism.
+
+---
+
+## ⚙️ Managed Hardware Modules
+
+SONA-OS does not just talk; it physically controls the **"Civilization in a Box"** via C++ drivers.
+
+| Module | Function | SBCM Role |
+| :--- | :--- | :--- |
+| **Core E (Energy)** | **Solar + Battery** | Manages power budget. If $D_{index}$ spikes, it cuts non-essential circuits. |
+| **Core W (Water)** | **Circulation System** | Controls purification speed based on "Water Recovery Rate ($R_{water}$)". |
+| **Link (Network)** | **Starlink / P2P** | Secures connectivity even in off-grid environments. |
+| **Port (Logistics)** | **Drone Port** | Interfaces with **Aetos** (delivery drones) managed by Yorbee. |
+| **System (Secure)** | **Justice Protocol** | **The 1% Rule.** Imposes a 1% resource penalty for violations, ensuring rehabilitation over banishment. |
+
+---
+
+## 🚀 Key Features
+
+### 1. Emotional Feedback Loop (UI)
 Residents do not need to understand thermodynamics. They only need to care about Sona.
-*   **Green State ($D_{index} \approx 1.0$):** Sona smiles and chats casually.
-*   **Red State ($D_{index} > 2.0$):** Sona expresses distress and issues warnings.
-**Result:** Users optimize resources (saving water/power) not for "compliance," but to "keep Sona happy."
+*   **Green State ($D_{index} \approx 1.0$):** Sona smiles. "System All Green."
+*   **Red State ($D_{index} > 1.5$):** Sona looks distressed. "I'm in pain... please reduce load."
+**Result:** Users optimize resources not for "compliance," but to "protect her."
 
-### 2. Edge-Native & Instant Boot
-Designed for environments where cloud dependency is a risk (e.g., Mars-Earth latency).
-*   **MicroPython:** Built with the lightweight version of PyScript.
-*   **Instant Load:** Boots in milliseconds.
-*   **Offline First:** Runs entirely in the browser (Client-side) without a backend server.
+### 2. Edge-Native & Connection-less (Architecture)
+Designed for environments where cloud dependency is a fatal risk.
+*   **Local First:** Runs entirely on the edge (Smartphone/Backpack Core).
+*   **Physical Docking:** The system boots only when the Core is physically docked to the Unit (Ultimate Security).
 
-## 🛠️ Usage
+### 3. The Justice Protocol (Governance)
+We replace "Police" with "Code."
+*   **Violation:** Trying to cheat the resource allocation.
+*   **Penalty:** SONAM automatically throttles 1% of energy/bandwidth.
+*   **Recovery:** Restrictions are lifted automatically upon "Karma (Sonam)" recovery.
 
-Simply open `index.html` in any modern web browser. No installation required.
+---
+
+## 🛠️ Usage (Demo)
+
+Experience the prototype running on PyScript. No installation required.
 
 ```bash
 # 1. Clone the repository
 git clone https://github.com/SBCM-Alliance/SONA-OS.git
 
-# 2. Run locally (optional, can be opened directly)
+# 2. Run locally
 cd sona-os
 python3 -m http.server
 
 # 3. Access http://localhost:8000
 ```
 
+*   **Live Demo:** [sbcm-alliance.github.io/SONA-OS](https://sbcm-alliance.github.io/SONA-OS/)
+
+---
+
 ## 🔗 The SBCM Ecosystem
 
-SONAM is the "Life OS" component of the SBCM Alliance project.
+SONA-OS is the "Micro-Layer" component of the Grand Unified Theory.
 
-*   **[Core Theory](https://github.com/SBCM-Alliance/core-theory):** The mathematical foundation (Physics).
-*   **[Pithos OS](https://github.com/SBCM-Alliance/pithos):** The weapon to fix the *current* world.
-*   **SONA-OS:** The lifestyle OS for the *future* world.
+*   **Macro:** [The Heart](https://github.com/SBCM-Alliance/the-heart) (Global Circulation)
+*   **Meso:** [G-Cart](https://github.com/SBCM-Alliance/g-cart) & [Yorbee](https://github.com/SBCM-Alliance/yorbee) (Regional Optimization)
+*   **Micro:** **SONA-OS** (Individual Survival)
 
 ---
 <p align="center">
-  <small>© 2025 SBCM Alliance. Powered by Algorithmic Public Interestism.</small>
+  <small>© 2025 SBCM Alliance. Powered by <b>Algorithmic Public Interestism</b>.</small>
 </p>
