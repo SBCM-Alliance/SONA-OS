@@ -9,12 +9,8 @@
     <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
     <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
     
-    <!-- Config: Use MicroPython (Ultra Light) -->
-    <script type="json" id="pyscript-config">
-        {
-            "interpreter": "micropython"
-        }
-    </script>
+    <!-- Config: MicroPython -->
+    <script type="json" id="pyscript-config">{"interpreter": "micropython"}</script>
 
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -25,13 +21,13 @@
             --bg: #050505;
             --panel: #111;
             --text: #e0e0e0;
-            --accent: #00ff41; /* SBCM Green */
+            --accent: #00ff41; 
             --alert: #ff0055;
-            --sona: #00ffff; /* Sona Blue */
+            --sona: #00ffff;
         }
         body { margin: 0; background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; height: 100vh; overflow: hidden; user-select: none; }
         
-        /* 0. LOADER (Pure CSS - Instant Show) */
+        /* 0. LOADER */
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000;
             display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 999;
@@ -50,11 +46,9 @@
         
         /* 2. MAIN UI */
         #main-ui { display: none; height: 100%; grid-template-rows: 50px 1fr; }
-        
         header { border-bottom: 1px solid #333; display: flex; align-items: center; padding: 0 15px; justify-content: space-between; font-size: 0.8rem; }
         
         .dashboard { padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
-        
         .card { background: var(--panel); border: 1px solid #333; padding: 15px; border-radius: 8px; }
         h3 { margin: 0 0 15px 0; color: #888; font-size: 0.8rem; text-transform: uppercase; border-bottom: 1px dashed #333; padding-bottom: 5px; }
         
@@ -65,37 +59,40 @@
         .bar-fill { height: 100%; background: var(--accent); width: 50%; transition: width 0.5s; }
         .val { width: 60px; text-align: right; }
 
-        /* Sona */
-        .sona-box { text-align: center; padding: 20px 0; }
-        .sona-icon { font-size: 3rem; color: var(--sona); animation: float 3s infinite ease-in-out; margin-bottom: 10px; }
-        .sona-text { font-size: 0.9rem; line-height: 1.5; min-height: 60px; }
+        /* --- SONA AVATAR STYLING --- */
+        .sona-box { text-align: center; padding: 10px 0; }
         
-        /* Controls */
+        .sona-img {
+            width: 140px; 
+            height: 140px;
+            border-radius: 12px; /* 少し角丸 */
+            border: 2px solid var(--sona);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2); /* 青い発光 */
+            object-fit: cover;
+            animation: float 3s infinite ease-in-out;
+            margin-bottom: 15px;
+            background: #000;
+        }
+
+        .sona-text { font-size: 0.9rem; line-height: 1.5; min-height: 50px; padding: 0 10px; }
+        
         .controls { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
         .btn-sim { background: transparent; border: 1px solid #555; color: #fff; padding: 10px; cursor: pointer; }
-        .btn-sim:active { background: #333; }
-
-        /* Log */
         .log-box { height: 80px; overflow-y: auto; font-size: 0.7rem; color: #666; border-top: 1px solid #333; padding-top: 10px; }
 
-        @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0); } }
-        .danger-text { color: var(--alert); }
-        .warn-text { color: orange; }
+        @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-6px); } 100% { transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <!-- 0. LIGHTWEIGHT LOADER -->
-    <div id="loader">
-        <div class="spinner"></div>
-        <div style="margin-top:10px; font-size:0.8rem; color:#666;">LOADING SONA...</div>
-    </div>
+    <!-- 0. LOADER -->
+    <div id="loader"><div class="spinner"></div><div style="margin-top:10px; font-size:0.8rem; color:#666;">LOADING SONA...</div></div>
 
     <!-- 1. LOGIN -->
     <div id="login-screen">
         <div class="login-box">
             <h1 style="margin:0; font-size: 1.5rem; color:var(--sona);">SONA OS</h1>
-            <p style="font-size:0.7rem; color:#888; margin-bottom:15px;">HABITAT KERNEL v0.3</p>
+            <p style="font-size:0.7rem; color:#888; margin-bottom:15px;">HABITAT KERNEL v0.4</p>
             <input type="text" id="u-name" placeholder="NAME">
             <button py-click="boot">CONNECT</button>
         </div>
@@ -109,160 +106,113 @@
         </header>
 
         <div class="dashboard">
-            <!-- SONA -->
+            <!-- SONA INTERFACE -->
             <div class="card" style="border-color:var(--sona);">
                 <h3>AI INTERFACE</h3>
                 <div class="sona-box">
-                    <div class="sona-icon"><i class="fas fa-user-astronaut"></i></div>
+                    <!-- ここに画像を埋め込む -->
+                    <img src="./sona.png" class="sona-img" alt="Sona Avatar" onerror="this.style.display='none'; document.getElementById('alt-icon').style.display='block';">
+                    <!-- 画像がない場合のフォールバックアイコン -->
+                    <div id="alt-icon" style="display:none; font-size:3rem; color:var(--sona); animation:float 3s infinite; margin-bottom:10px;"><i class="fas fa-user-astronaut"></i></div>
+                    
                     <div id="sona-msg" class="sona-text">System Online.</div>
                 </div>
             </div>
 
-            <!-- PHYSICS -->
+            <!-- PHYSICS MONITOR -->
             <div class="card">
                 <h3>RESOURCE MONITOR</h3>
-                <div class="metric-row">
-                    <span class="label">H2O</span>
-                    <div class="bar-bg"><div id="b-water" class="bar-fill"></div></div>
-                    <span id="v-water" class="val">100L</span>
-                </div>
-                <div class="metric-row">
-                    <span class="label">PWR</span>
-                    <div class="bar-bg"><div id="b-power" class="bar-fill"></div></div>
-                    <span id="v-power" class="val">100%</span>
-                </div>
-                
+                <div class="metric-row"><span class="label">H2O</span><div class="bar-bg"><div id="b-water" class="bar-fill"></div></div><span id="v-water" class="val">100L</span></div>
+                <div class="metric-row"><span class="label">PWR</span><div class="bar-bg"><div id="b-power" class="bar-fill"></div></div><span id="v-power" class="val">100%</span></div>
                 <div style="margin-top:15px; text-align:center;">
                     <span style="font-size:0.7rem; color:#888;">DISTORTION INDEX</span><br>
                     <span id="v-dindex" style="font-size:2rem; font-weight:bold;">1.00</span>
                 </div>
-
-                <div class="controls">
-                    <button class="btn-sim" py-click="tick">⏱ NEXT HOUR</button>
-                </div>
+                <div class="controls"><button class="btn-sim" py-click="tick">⏱ NEXT HOUR</button></div>
             </div>
 
-            <!-- LOG -->
-            <div class="log-box" id="sys-log">
-                <div>> Boot sequence complete.</div>
-            </div>
+            <div class="log-box" id="sys-log"><div>> Boot sequence complete.</div></div>
         </div>
     </div>
 
-    <!-- PYTHON LOGIC (MicroPython Compatible) -->
+    <!-- PYTHON LOGIC (MicroPython) -->
     <script type="py">
         from pyscript import document
         import random
-        # MicroPython doesn't have datetime/dataclasses by default in minimal builds
-        # So we use simple variables and basic logic
 
-        # STATE
-        state = {
-            "name": "Master",
-            "hour": 6,
-            "day": 1,
-            "water": 100.0,
-            "w_max": 200.0,
-            "power": 10.0,
-            "p_max": 13.5,
-            "d_index": 1.0
-        }
+        state = {"name":"Master", "hour":6, "day":1, "water":100.0, "w_max":200.0, "power":10.0, "p_max":13.5, "d_index":1.0}
 
         def log(msg):
             c = document.getElementById("sys-log")
-            h = state["hour"]
-            d = state["day"]
-            c.innerHTML = f"<div>[{d:02}d {h:02}:00] {msg}</div>" + c.innerHTML
+            c.innerHTML = f"<div>[{state['day']:02}d {state['hour']:02}:00] {msg}</div>" + c.innerHTML
 
         def update_ui():
-            # Update Bars
-            w_pct = (state["water"] / state["w_max"]) * 100
-            p_pct = (state["power"] / state["p_max"]) * 100
-            
+            w_pct = (state["water"]/state["w_max"])*100
+            p_pct = (state["power"]/state["p_max"])*100
             document.getElementById("b-water").style.width = f"{w_pct}%"
             document.getElementById("v-water").innerText = f"{state['water']:.1f}L"
-            
             document.getElementById("b-power").style.width = f"{p_pct}%"
             document.getElementById("v-power").innerText = f"{state['power']:.1f}kWh"
             
             d = state["d_index"]
             el_d = document.getElementById("v-dindex")
             el_d.innerText = f"{d:.2f}"
-            
-            # Color Logic
             if d > 2.0: el_d.style.color = "#ff0055"
             elif d > 1.2: el_d.style.color = "orange"
             else: el_d.style.color = "#00ff41"
-
-            # Clock
-            h = state["hour"]
-            d_cnt = state["day"]
-            document.getElementById("clock").innerText = f"DAY {d_cnt:02} {h:02}:00"
+            document.getElementById("clock").innerText = f"DAY {state['day']:02} {state['hour']:02}:00"
 
         def talk():
             d = state["d_index"]
             nm = state["name"]
             msg = ""
+            img = document.querySelector(".sona-img")
             
             if d > 2.0:
-                msg = f"警告: {nm}、エネルギーレベルが危険域です。直ちに負荷を下げてください。"
+                msg = f"警告: {nm}、エネルギーレベル危険域。負荷を下げて。"
                 document.getElementById("sona-msg").style.color = "#ff0055"
+                img.style.borderColor = "#ff0055"
+                img.style.boxShadow = "0 0 20px rgba(255, 0, 85, 0.4)"
             elif d > 1.2:
-                msg = f"バランスが崩れています。{nm}、節約をお願いできますか？"
+                msg = f"バランスが崩れています。{nm}、節約をお願い。"
                 document.getElementById("sona-msg").style.color = "orange"
+                img.style.borderColor = "orange"
+                img.style.boxShadow = "0 0 20px rgba(255, 165, 0, 0.3)"
             else:
-                msgs = [
-                    f"システム正常。{nm}、快適な環境ですね。",
-                    "ソーラーパネルの出力、安定しています。",
-                    f"{nm}、少し休憩しませんか？",
-                    "外部通信、異常なし。"
-                ]
+                msgs = [f"システム正常。{nm}、調子はどう？", "ソーラーパネル出力安定。", f"{nm}、少し休憩しない？", "外部通信、異常なし。"]
                 msg = random.choice(msgs)
                 document.getElementById("sona-msg").style.color = "#e0e0e0"
+                img.style.borderColor = "#00ffff"
+                img.style.boxShadow = "0 0 20px rgba(0, 255, 255, 0.2)"
             
             document.getElementById("sona-msg").innerText = msg
 
         def tick(e):
-            # Time
             state["hour"] += 1
-            if state["hour"] >= 24:
-                state["hour"] = 0
-                state["day"] += 1
-            
-            # Physics
+            if state["hour"] >= 24: state["hour"]=0; state["day"]+=1
             is_day = 6 <= state["hour"] <= 18
-            
-            # Water logic
             use = 4.0 if is_day else 2.0
             rec = use * 0.95
             state["water"] = max(0, min(state["w_max"], state["water"] - use + rec))
-            
-            # Power logic
             gen = 0.8 if is_day else 0.0
             drain = 0.6 if is_day else 0.4
             state["power"] = max(0, min(state["p_max"], state["power"] + gen - drain))
-            
-            # D_Index
             risk = 0
             if state["power"] < 3.0: risk += 2.0
             if state["water"] < 20.0: risk += 2.0
             state["d_index"] = 1.0 + risk
-            
             update_ui()
             talk()
 
         def boot(e):
             inp = document.getElementById("u-name").value
             if inp: state["name"] = inp
-            
             document.getElementById("login-screen").style.display = "none"
             document.getElementById("main-ui").style.display = "grid"
-            
-            log(f"System Booted. User: {state['name']}")
+            log(f"Booted. User: {state['name']}")
             update_ui()
             talk()
 
-        # Init Loader Clear
         def init():
             document.getElementById("loader").style.display = "none"
             document.getElementById("login-screen").style.display = "flex"
