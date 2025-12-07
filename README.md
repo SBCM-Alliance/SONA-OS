@@ -14,8 +14,6 @@ It translates the complex thermodynamics of resource management (Water, Power, E
 
 ### 🖥️ Interface
 ![SONAM UI](docs/screenshot.png)
-*Fig 1. SONAM Interface running on a "SONA-Type-D" Unit.*
-*(Please replace `docs/screenshot.png` with your actual screenshot)*
 
 ---
 
