@@ -18,34 +18,36 @@
 
     <style>
         :root { --bg: #050505; --panel: #111; --text: #e0e0e0; --accent: #00ff41; --alert: #ff0055; --sona: #00ffff; }
-        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; height: 100vh; overflow: hidden; user-select: none; }
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; height: 100dvh; overflow: hidden; user-select: none; }
         
-        /* LAYOUT */
-        #main-ui { display: grid; height: 100%; grid-template-rows: 50px 1fr 200px; }
-        header { border-bottom: 1px solid #333; display: flex; align-items: center; padding: 0 15px; justify-content: space-between; font-size: 0.8rem; }
+        /* LAYOUT: Flexbox for stability */
+        #main-ui { display: flex; flex-direction: column; height: 100%; }
         
-        /* SONA AREA */
-        .dashboard { padding: 15px; overflow-y: auto; display: flex; gap: 10px; }
-        .card { background: var(--panel); border: 1px solid #333; padding: 15px; border-radius: 8px; flex: 1; }
+        /* 1. HEADER (Fixed) */
+        header { flex: 0 0 50px; border-bottom: 1px solid #333; display: flex; align-items: center; padding: 0 15px; justify-content: space-between; font-size: 0.8rem; }
         
-        /* METRICS */
+        /* 2. DASHBOARD (Auto Height) */
+        .dashboard { flex: 0 0 auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; z-index: 10; background: var(--bg); }
+        .card { background: var(--panel); border: 1px solid #333; padding: 15px; border-radius: 8px; width: 100%; box-sizing: border-box; }
+        
+        /* 3. MAP CONTAINER (Fill Remaining Space) */
+        #map-container { flex: 1; position: relative; border-top: 2px solid var(--sona); min-height: 200px; }
+        #map { height: 100%; width: 100%; background: #222; } /* Fallback color */
+        
+        /* UI ELEMENTS */
         .metric-row { display: flex; align-items: center; margin-bottom: 10px; font-size: 0.8rem; }
         .bar-bg { flex: 1; height: 6px; background: #333; margin: 0 10px; }
         .bar-fill { height: 100%; background: var(--accent); width: 100%; transition: width 0.5s; }
         
-        /* AVATAR */
-        .sona-img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--sona); object-fit: cover; float: left; margin-right: 15px; }
-        .sona-msg { font-size: 0.9rem; line-height: 1.4; color: var(--sona); margin-top: 10px; }
+        .sona-img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--sona); object-fit: cover; float: left; margin-right: 15px; }
+        .sona-msg { font-size: 0.85rem; line-height: 1.4; color: var(--sona); min-height: 60px; }
 
-        /* MAP AREA (AETOS) */
-        #map-container { border-top: 2px solid var(--sona); position: relative; }
-        #map { height: 100%; width: 100%; opacity: 0.7; }
-        .drone-overlay { position: absolute; top: 10px; right: 10px; z-index: 999; background: rgba(0,0,0,0.8); padding: 5px 10px; font-size: 0.7rem; border: 1px solid var(--accent); }
-        
+        /* DRONE OVERLAY */
+        .drone-overlay { position: absolute; top: 10px; right: 10px; z-index: 999; background: rgba(0,0,0,0.8); padding: 5px 10px; font-size: 0.7rem; border: 1px solid var(--accent); color: var(--accent); }
         .drone-icon { font-size: 24px; animation: pulse 1s infinite; text-shadow: 0 0 5px #0f0; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
-        button { background: #333; color: #fff; border: 1px solid #fff; padding: 5px 10px; cursor: pointer; width: 100%; margin-top: 5px;}
+        button { background: #333; color: #fff; border: 1px solid #fff; padding: 8px 10px; cursor: pointer; width: 100%; margin-top: 5px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -56,12 +58,13 @@
             <div id="clock">Day 01 12:00</div>
         </header>
 
+        <!-- SONA (Agent) -->
         <div class="dashboard">
-            <!-- LEFT: SONA -->
             <div class="card" style="border-color: var(--sona);">
                 <img src="./sona.png" class="sona-img" onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=Sona'">
                 <div id="sona-msg" class="sona-msg">System Online.<br>Monitoring Habitat.</div>
-                <div style="clear:both; margin-top:15px;">
+                
+                <div style="clear:both; margin-top:10px; border-top:1px dashed #333; padding-top:10px;">
                     <div class="metric-row">H2O <div class="bar-bg"><div id="b-water" class="bar-fill"></div></div> <span id="v-water">100%</span></div>
                     <div class="metric-row">PWR <div class="bar-bg"><div id="b-power" class="bar-fill"></div></div> <span id="v-power">100%</span></div>
                 </div>
@@ -69,7 +72,7 @@
             </div>
         </div>
 
-        <!-- BOTTOM: DRONE MAP -->
+        <!-- AETOS (Map) -->
         <div id="map-container">
             <div id="map"></div>
             <div class="drone-overlay">
@@ -82,16 +85,34 @@
     <script>
         let map, droneMarker;
         const HOME = [35.8617, 139.9711]; // Kashiwa Base
-        const DEPOT = [35.8650, 139.9750]; // Supply Depot
+        const DEPOT = [35.8650, 139.9750]; 
+
+        window.onload = function() {
+            setTimeout(initMap, 100); // Slight delay to ensure layout
+        };
 
         function initMap() {
+            // Dark Matter Tile
             map = L.map('map', {zoomControl: false}).setView(HOME, 15);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CartoDB',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(map);
+            
             const icon = L.divIcon({className: 'drone-icon', html: '🚁'});
             droneMarker = L.marker(HOME, {icon: icon}).addTo(map);
+            
+            // Re-render map size
+            map.invalidateSize();
         }
-        function moveDrone(lat, lon) { if(droneMarker) droneMarker.setLatLng([lat, lon]); }
-        setTimeout(initMap, 500); // Wait for load
+
+        function moveDrone(lat, lon) { 
+            if(droneMarker) {
+                droneMarker.setLatLng([lat, lon]); 
+                map.panTo([lat, lon]);
+            }
+        }
     </script>
 
     <!-- PYTHON LOGIC -->
@@ -154,7 +175,7 @@
             elif state["water"] < 30:
                 msg = "水が切れそうです... ドローンを手配しますか？\n(自動発注システム起動)"
                 color = "#ff0055"
-                # Trigger Drone Automatically if critical
+                # Trigger Drone Automatically
                 asyncio.create_task(call_drone_delivery())
             else:
                 msg = "システム正常。快適な環境です。"
