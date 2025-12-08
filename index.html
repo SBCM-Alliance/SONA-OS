@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SONAM + AETOS | Integrated Habitat</title>
+    <title>SONA-OS | Habitat Interface</title>
     
     <!-- PyScript -->
     <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
@@ -28,24 +28,34 @@
         .dashboard { flex: 0 0 auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; z-index: 10; background: var(--bg); }
         .card { background: var(--panel); border: 1px solid #333; padding: 15px; border-radius: 8px; width: 100%; box-sizing: border-box; }
         
-        /* MAP */
-        #map-container { flex: 1; position: relative; border-top: 2px solid var(--sona); min-height: 200px; }
-        #map { height: 100%; width: 100%; background: #222; }
-        
-        /* UI ELEMENTS */
-        .metric-row { display: flex; align-items: center; margin-bottom: 10px; font-size: 0.8rem; }
+        /* AVATAR SECTION */
+        .avatar-container { display: flex; align-items: flex-start; gap: 15px; }
+        .sona-img { 
+            width: 80px; height: 80px; 
+            border-radius: 8px; /* 四角いカード風に変更 */
+            border: 2px solid var(--sona); 
+            object-fit: cover; 
+            background: #000;
+            transition: all 0.3s ease;
+        }
+        /* 危機的状況で画像を赤く点滅させるクラス */
+        .critical-alert { animation: pulse-red 1s infinite; border-color: var(--alert); }
+        @keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.7); } 70% { box-shadow: 0 0 10px 10px rgba(255, 0, 85, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 0, 85, 0); } }
+
+        .sona-msg { font-size: 0.85rem; line-height: 1.4; color: var(--sona); display: flex; align-items: center; min-height: 80px; }
+
+        /* BARS */
+        .metric-row { display: flex; align-items: center; margin-top: 10px; font-size: 0.8rem; }
         .bar-bg { flex: 1; height: 6px; background: #333; margin: 0 10px; }
         .bar-fill { height: 100%; background: var(--accent); width: 100%; transition: width 0.5s; }
-        
-        .sona-img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--sona); object-fit: cover; float: left; margin-right: 15px; }
-        .sona-msg { font-size: 0.85rem; line-height: 1.4; color: var(--sona); min-height: 60px; display: flex; align-items: center; }
 
-        /* DRONE OVERLAY */
+        /* MAP & DRONE */
+        #map-container { flex: 1; position: relative; border-top: 2px solid var(--sona); min-height: 200px; }
+        #map { height: 100%; width: 100%; background: #222; }
         .drone-overlay { position: absolute; top: 10px; right: 10px; z-index: 999; background: rgba(0,0,0,0.8); padding: 5px 10px; font-size: 0.7rem; border: 1px solid var(--accent); color: var(--accent); }
         .drone-icon { font-size: 24px; animation: pulse 1s infinite; text-shadow: 0 0 5px #0f0; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
-        button { background: #333; color: #fff; border: 1px solid #fff; padding: 8px 10px; cursor: pointer; width: 100%; margin-top: 5px; font-weight: bold; transition: 0.2s; }
+        button { background: #333; color: #fff; border: 1px solid #fff; padding: 12px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: bold; transition: 0.2s; font-family: inherit; }
         button:active { background: #fff; color: #000; }
     </style>
 </head>
@@ -53,21 +63,27 @@
 
     <div id="main-ui">
         <header>
-            <div><i class="fas fa-network-wired"></i> <b>SONAM x AETOS</b></div>
-            <div id="clock">Day 01 12:00</div>
+            <div><i class="fas fa-microchip"></i> <b>SONA-OS v0.0.3</b></div>
+            <div id="clock">SYS: ACTIVE</div>
         </header>
 
         <!-- SONA (Agent) -->
         <div class="dashboard">
             <div class="card" style="border-color: var(--sona);">
-                <img src="./sona.png" class="sona-img" onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=Sona'">
-                <div id="sona-msg" class="sona-msg">System Online.<br>Monitoring Habitat.</div>
+                <div class="avatar-container">
+                    <!-- IMAGE: FALLBACK TO NOMINAL IF MISSING -->
+                    <img id="sona-face" src="./assets/avatar/nominal.png" class="sona-img" 
+                         onerror="this.onerror=null; this.src='./assets/avatar/nominal.png';">
+                    
+                    <div id="sona-msg" class="sona-msg">System initialized.<br>Monitoring Habitat metrics.</div>
+                </div>
                 
-                <div style="clear:both; margin-top:10px; border-top:1px dashed #333; padding-top:10px;">
+                <div style="margin-top:15px; border-top:1px dashed #333; padding-top:10px;">
                     <div class="metric-row">H2O <div class="bar-bg"><div id="b-water" class="bar-fill"></div></div> <span id="v-water">100%</span></div>
                     <div class="metric-row">PWR <div class="bar-bg"><div id="b-power" class="bar-fill"></div></div> <span id="v-power">100%</span></div>
                 </div>
-                <button py-click="tick">⏳ FAST FORWARD (Time)</button>
+                <!-- デモ用: 時間を経過させて表情変化を見せるボタン -->
+                <button py-click="tick">⏳ FAST FORWARD (+1 Hour)</button>
             </div>
         </div>
 
@@ -75,7 +91,7 @@
         <div id="map-container">
             <div id="map"></div>
             <div class="drone-overlay">
-                🚁 AETOS LINK: <span id="drone-status">STANDBY</span>
+                🚁 LINK: <span id="drone-status">STANDBY</span>
             </div>
         </div>
     </div>
@@ -84,19 +100,17 @@
     <script>
         let map, droneMarker;
         const HOME = [35.8617, 139.9711]; // Kashiwa Base
-        const DEPOT = [35.8650, 139.9750]; 
-
+        
         window.onload = function() { setTimeout(initMap, 100); };
 
         function initMap() {
-            map = L.map('map', {zoomControl: false}).setView(HOME, 15);
+            map = L.map('map', {zoomControl: false, attributionControl: false}).setView(HOME, 15);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; OpenStreetMap', subdomains: 'abcd', maxZoom: 19
+                subdomains: 'abcd', maxZoom: 19
             }).addTo(map);
             
             const icon = L.divIcon({className: 'drone-icon', html: '🚁'});
             droneMarker = L.marker(HOME, {icon: icon}).addTo(map);
-            map.invalidateSize();
         }
 
         function moveDrone(lat, lon) { 
@@ -114,31 +128,65 @@
         # Initial State
         state = {"water": 100.0, "power": 100.0, "is_flying": False}
 
+        # --- AVATAR CONTROLLER ---
+        def update_avatar(w, p, is_flying):
+            """
+            熱力学(w, p)を感情(img)にマッピングするコア関数
+            """
+            img_el = document.getElementById("sona-face")
+            base_path = "./assets/avatar/"
+            
+            # Logic: Priority Queue
+            if is_flying:
+                # 思考中/待機中
+                target = "compute.png"
+                img_el.classList.remove("critical-alert")
+            elif w < 20 or p < 20:
+                # 危機的状況 (泣き顔)
+                target = "critical.png"
+                img_el.classList.add("critical-alert")
+            elif w < 40 or p < 40:
+                # 負荷増大 (汗/焦り)
+                target = "strain.png"
+                img_el.classList.remove("critical-alert")
+            elif w > 80 and p > 80:
+                # 最適状態 (笑顔/ドヤ)
+                target = "optimal.png"
+                img_el.classList.remove("critical-alert")
+            else:
+                # 通常 (真顔)
+                target = "nominal.png"
+                img_el.classList.remove("critical-alert")
+
+            # Update Source
+            img_el.src = base_path + target
+
         # --- AETOS DRONE LOGIC ---
         async def call_drone_delivery():
             if state["is_flying"]: return
             state["is_flying"] = True
             
-            # Status Update
+            update_avatar(state["water"], state["power"], True) # Face -> Compute
+            
             document.getElementById("drone-status").innerText = "LAUNCHING..."
             document.getElementById("drone-status").style.color = "#00ff41"
             
-            # Flight Path
+            # Flight Simulation
             home = (35.8617, 139.9711)
             depot = (35.8650, 139.9750)
-            steps = 40
+            steps = 30
             
-            # Go to Depot
+            # Go
             for i in range(steps):
                 lat = home[0] + (depot[0] - home[0]) * (i/steps)
                 lon = home[1] + (depot[1] - home[1]) * (i/steps)
                 js.moveDrone(lat, lon)
                 await asyncio.sleep(0.05)
             
-            document.getElementById("drone-status").innerText = "LOADING CARTRIDGE..."
+            document.getElementById("drone-status").innerText = "REFILLING..."
             await asyncio.sleep(1)
             
-            # Return Home
+            # Return
             for i in range(steps):
                 lat = depot[0] - (depot[0] - home[0]) * (i/steps)
                 lon = depot[1] - (depot[1] - home[1]) * (i/steps)
@@ -148,26 +196,29 @@
             document.getElementById("drone-status").innerText = "DELIVERED"
             state["is_flying"] = False
             
-            # === PHYSICAL RESOURCE SWAP ===
+            # Refill Resources
             state["water"] = 100.0
-            state["power"] = 100.0 # Battery Swapped!
+            state["power"] = 100.0
             
             update_ui()
-            set_msg("水タンクとバッテリーを交換しました。\nありがとう、Aetos。", "#00ffff")
+            set_msg("補給完了。\n生存確率は正常値に戻りました。", "#00ffff")
 
-        # --- SONA LOGIC ---
+        # --- CORE SYSTEM ---
         def update_ui():
-            # Water Bar
             w = state['water']
+            p = state['power']
+            
+            # Bars
             document.getElementById("b-water").style.width = f"{w}%"
             document.getElementById("v-water").innerText = f"{int(w)}%"
             document.getElementById("b-water").style.background = "#ff0055" if w < 20 else "#00ff41"
 
-            # Power Bar
-            p = state['power']
             document.getElementById("b-power").style.width = f"{p}%"
             document.getElementById("v-power").innerText = f"{int(p)}%"
             document.getElementById("b-power").style.background = "#ff0055" if p < 20 else "#00ff41"
+
+            # Avatar Update (Link Logic to Emotion)
+            update_avatar(w, p, state["is_flying"])
 
         def set_msg(msg, color="#e0e0e0"):
             el = document.getElementById("sona-msg")
@@ -175,33 +226,32 @@
             el.style.color = color
 
         def tick(e):
-            # 1. Weather Simulation (Solar)
-            is_sunny = random.random() > 0.6 # 40% Chance of Sun
+            # Simulation Logic
+            is_sunny = random.random() > 0.5
             
-            # 2. Consumption
-            state["water"] = max(0, state["water"] - 10)
+            # Decrease Water
+            state["water"] = max(0, state["water"] - 15)
             
-            # 3. Power Logic
+            # Power Flux
             if is_sunny:
-                # Generation > Consumption
-                state["power"] = min(100, state["power"] + 15)
-                weather_status = "（発電中...☀️）"
+                state["power"] = min(100, state["power"] + 10)
+                status = "（日照あり☀️）"
             else:
-                # Consumption Only
-                state["power"] = max(0, state["power"] - 10)
-                weather_status = ""
+                state["power"] = max(0, state["power"] - 15)
+                status = "（日照なし☁️）"
 
-            # 4. Emergency Check
+            # Emergency Check
             if state["water"] < 20 or state["power"] < 20:
-                set_msg("リソース残量が危険域です...！\nAetosに緊急配送を要請します。", "#ff0055")
-                # Auto Order
+                set_msg("警告：リソース枯渇。\nAetosに緊急配送を要請中...", "#ff0055")
                 asyncio.create_task(call_drone_delivery())
             else:
-                # Normal Operation
-                if is_sunny:
-                    set_msg(f"太陽光パネル効率良好。\nエネルギーチャージ中...{weather_status}", "#e0e0e0")
+                # Normal Messages
+                if state["water"] < 40:
+                    set_msg("水残量が低下しています。\n節水を推奨します。", "#ffaa00")
+                elif state["power"] > 90:
+                    set_msg(f"エネルギー充填完了。\n最高効率で稼働中。{status}", "#00ff41")
                 else:
-                    set_msg("システム正常。快適な環境です。", "#e0e0e0")
+                    set_msg(f"システム正常。\n環境維持モード稼働中。{status}", "#00ffff")
             
             update_ui()
 
