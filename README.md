@@ -20,7 +20,7 @@ In a closed ecosystem—such as a dying rural village or a Mars colony—resourc
 **We solved this by converting "Thermodynamics" into "Empathy."**
 SONA translates complex resource data (Water, Power, Entropy) into the emotions of an AI avatar.
 
-![SONAM UI](docs/screenshot.png)
+![SONAM UI](docs/demo.webp)
 
 ### 🔑 Definitions
 *   **SONA (Micro):** The Agent & The Unit. Your partner who manages the house.
