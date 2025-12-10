@@ -1,0 +1,186 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36" version="29.2.6">
+  <diagram id="zbvPK-9llPYbcan_AHlD" name="ページ1">
+    <mxGraphModel dx="431" dy="1078" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dddEoge8v5_wK2aipPtP-1" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="🏠 Sona Habitat (3x10m Linear Type)" vertex="1">
+          <mxGeometry height="755" width="1725" x="287" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-2" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="Zone C: LIFE (7m)" vertex="1">
+          <mxGeometry height="363" width="268" x="1719" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-3" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="Zone B: WET (2m)" vertex="1">
+          <mxGeometry height="265" width="643" x="1344" y="423" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-4" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="Zone A: CORE (1m)" vertex="1">
+          <mxGeometry height="715" width="930" x="312" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-5" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="☀️ Solar / Grid" vertex="1">
+          <mxGeometry height="54" width="164" x="24" y="53" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-6" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="💧 Rain / Water" vertex="1">
+          <mxGeometry height="54" width="172" x="20" y="382" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-7" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="📡 Starlink" vertex="1">
+          <mxGeometry height="54" width="137" x="37" y="707" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-8" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="🚁 Aetos Port" vertex="1">
+          <mxGeometry height="54" width="159" x="2128" y="595" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-9" parent="1" style="ellipse;aspect=fixed;strokeWidth=2;whiteSpace=wrap;" value="🔌 SBCM-DIN Interface" vertex="1">
+          <mxGeometry height="181" width="181" x="337" y="447" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-10" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="🔋 LFP / Reused EV Batt" vertex="1">
+          <mxGeometry height="54" width="235" x="621" y="261" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-11" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="🧠 SONA-OS Server" vertex="1">
+          <mxGeometry height="54" width="200" x="1016" y="283" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-12" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="🚽 Gravity Compost" vertex="1">
+          <mxGeometry height="54" width="202" x="1369" y="479" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-13" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="📦 Pelletizer" vertex="1">
+          <mxGeometry height="54" width="149" x="1778" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-14" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="🚿 Circulating Shower" vertex="1">
+          <mxGeometry height="54" width="218" x="1744" y="599" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-15" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="💻 Yorbee Terminal" vertex="1">
+          <mxGeometry height="54" width="199" x="1753" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-16" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="🖥️ Wall Interface" vertex="1">
+          <mxGeometry height="54" width="182" x="1762" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-17" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="🛏️ Capsule Bed" vertex="1">
+          <mxGeometry height="54" width="173" x="1766" y="314" as="geometry" />
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-18" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-5" style="curved=1;startArrow=none;endArrow=block;strokeWidth=3;exitX=1;exitY=0.5;entryX=0.37;entryY=0;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-9" value="Power">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="312" y="80" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-19" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-6" style="curved=1;startArrow=none;endArrow=block;strokeWidth=3;exitX=1;exitY=0.5;entryX=0.05;entryY=0;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-9" value="Water">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="312" y="409" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-20" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-7" style="curved=1;startArrow=none;endArrow=block;strokeWidth=3;exitX=1;exitY=0.5;entryX=0.2;entryY=1;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-9" value="Data">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="312" y="734" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-21" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-9" style="curved=1;startArrow=none;endArrow=block;strokeWidth=3;exitX=0.78;exitY=0;entryX=0;entryY=0.5;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-10" value="DC 48V">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="569" y="288" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-22" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-10" style="curved=1;startArrow=none;endArrow=block;strokeWidth=3;exitX=1;exitY=0.5;entryX=0;entryY=0.27;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-11" value="Power">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="936" y="288" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-23" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-10" style="curved=1;startArrow=none;endArrow=block;strokeWidth=3;exitX=0.62;exitY=1;entryX=0;entryY=0.02;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-12" value="Power">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="936" y="474" />
+              <mxPoint x="1344" y="474" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-24" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-10" style="curved=1;startArrow=none;endArrow=block;strokeWidth=3;exitX=0.61;exitY=0;entryX=0.02;entryY=0;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-15" value="Power">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="936" y="91" />
+              <mxPoint x="1719" y="91" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-25" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-10" style="curved=1;startArrow=none;endArrow=block;strokeWidth=3;exitX=0.75;exitY=0;entryX=0;entryY=0.02;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-16" value="Power">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="936" y="199" />
+              <mxPoint x="1719" y="199" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-26" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-11" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0.59;exitY=1;entryX=0;entryY=0.5;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-12" value="Control">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1242" y="506" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-27" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-11" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.23;entryY=1;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-16" value="Status">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1719" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-28" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-11" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0.59;exitY=0;entryX=0;entryY=0.42;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-15" value="Job Match">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1242" y="123" />
+              <mxPoint x="1719" y="123" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-29" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-12" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.67;entryX=0;entryY=0.5;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-13" value="Weight Power">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1645" y="522" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-30" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-13" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.27;entryY=0;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-8" value="Resource">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2070" y="522" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-31" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-15" style="curved=1;startArrow=none;endArrow=block;strokeWidth=3;exitX=0.02;exitY=1;entryX=0.62;entryY=0;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-11" value="Work (Mining)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1719" y="167" />
+              <mxPoint x="1242" y="167" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-32" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-11" style="curved=1;startArrow=none;endArrow=block;strokeWidth=3;exitX=0;exitY=0.86;entryX=0.9;entryY=1;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-10" value="Reward (Credit)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="936" y="345" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-33" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-8" style="curved=1;startArrow=none;endArrow=block;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-4" value="Supply">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-34" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-4" style="curved=1;startArrow=none;endArrow=none;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-3" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dddEoge8v5_wK2aipPtP-35" edge="1" parent="1" source="dddEoge8v5_wK2aipPtP-3" style="curved=1;startArrow=none;endArrow=none;rounded=0;fontSize=12;startSize=8;endSize=8;" target="dddEoge8v5_wK2aipPtP-2" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
