@@ -1,5 +1,8 @@
 # 🏗️ Sona Hardware Specifications (v0.1 Draft)
 
+## 🏠️ Temporary assembly
+![](/hardware_specs/sona_drawio_Temporary.png)
+
 ## 🔌 Sona Universal Link (SUL)
 **The Physical API for Civilization.**
 
