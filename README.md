@@ -30,7 +30,7 @@ SONA translates complex resource data (Water, Power, Entropy) into the emotions 
 
 ## ⚙️ Managed Hardware Modules
 SONA-OS does not just talk; it physically controls the **"Civilization in a Box"** via C++ drivers.  
-Learn more 👉️ [HERE](/hardware_specs/readme.md)  
+Learn more 👉️ [HERE](/hardware_specs/README.md)  
 
 | Module | Function | SBCM Role |
 | :--- | :--- | :--- |
